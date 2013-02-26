@@ -314,6 +314,9 @@ mwmbsd <- function(L, cft, A3m, xBcf, Gev, curblk, nord, curs=TRUE) {
     getQICcoefficients1Block(L, cft, A3m, xBcf, Gev, curblk, nord, curs)
 }
 
+
+## this is very slow right now, and will need a little tweaking and thought
+##
 getQICcoefficients <- function(L, cfts, A3m, xBcf, Gev, nord, curs=TRUE) {
     nFreqs <- dim(cfts)[1]
     nBlocks <- dim(cfts)[3]
