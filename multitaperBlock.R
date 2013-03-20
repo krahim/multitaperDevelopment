@@ -416,6 +416,8 @@ spec.mtm.block <- function(timeSeries,
         
         sdfs[,iBlockP1] <- adaptive$s
         dofs[,iBlockP1] <- adaptive$dofs
+
+        ## the weights returned are squared dw2 so we need the square root.
         wtcfts[,,iBlockP1] <- cft*sqrt(adaptive$wt)
         sas[,,iBlockP1] <- sa
     }
@@ -459,12 +461,14 @@ spec.mtm.block <- function(timeSeries,
 
     ## Feb 25 2013 change freqs to freq
     ## and aux to mtm to match package code
+    ## Changed sdf to spec
+    ## specMat is the matrix of sdfs for plotting
     return(list(freq=resultFreqs,
-                sdf=sdf,
-                minSdf=minSdf,
-                maxSdf=maxSdf,
-                gmeanSdf=gmeanSdf,
-                sdfs=sdfs,
+                spec=sdf,
+                minSpec=minSdf,
+                maxSpec=maxSdf,
+                gmeanSpec=gmeanSdf,
+                specMat=sdfs,
                 avgLogF=avgLogF,
                 dofs=dofs,
                 jk=jk,
