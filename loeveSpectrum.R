@@ -3,10 +3,12 @@ require(multitaper)
 ## based on German Prieto's et. al  2005 IEEE paper
 ## MULTITAPER WIGNER-VILLE SPECTRUM FOR DETECTING DISPERSIVE SIGNALS
 ## FROM EARTHQUAKE RECORDS
-##  1­4244­0132­1/05/  
+##  1­4244­0132­1/05/
+
 loeveSpectrum <- function (data, nw, nord, nFFT=length(data), deltat=1.0)  {
     
-    res <- spec.mtm(willamette, nw=nw, k=nord, nFFT=nFFT,
+    res <- spec.mtm(data, ##willamette,
+                    nw=nw, k=nord, nFFT=nFFT,
                     dT=deltat,
                     returnInternals=TRUE, plot=FALSE)
 
