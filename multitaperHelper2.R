@@ -1,4 +1,6 @@
 ## the comment had been updated here.
+## Please, remember to update this comment regarding the weights in the package
+## once verified.
 .mw2wta <- function(sa, nfreq, nord,
                     var, dt_, ev, evp=(1-ev),
                     tol=.03, maxadaptiveiteration=100) {
