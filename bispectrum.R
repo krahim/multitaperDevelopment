@@ -176,3 +176,14 @@ biPeriodogram <- function(data, nfft=length(data)) {
 ## see djt's paper
 ## it appears we have to complex demodulate accross the frquency grid.
 ## and sum a tripple product like above. 
+
+## we need to do the complex demodulates across the frequency grid and then combine them
+
+nFFT <- 512
+nFreqs <- as.integer(nFFT/2) +1
+freq1 <- (1:nFreqs) -1
+## frequency grid for complex demodulates
+freq2 <- freq1/nFFT
+
+## so we need a block length if the block length is the entire series, then we get one value
+demod.dpss(1:10, freq2[1], 4, 2)
