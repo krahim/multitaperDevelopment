@@ -50,7 +50,7 @@ pgram2 <- function(data, nfft=length(data)) {
 }
 
 ## biperiodogram
-bispectrum <- function(data, nfft=length(data)) {
+biPeriodogramNegFreq <- function(data, nfft=length(data)) {
     
     ##for testing
     ##data=1:9
@@ -67,6 +67,9 @@ bispectrum <- function(data, nfft=length(data)) {
     
     ##seq1 <- NULL
     seq1 <-  c((resLen+1):len, 1:resLen)
+
+    ## freq1 indicates the numerator of frequencies,
+    ## actual frequencies are freq1/l
     freq1 <- NULL
     if(len %% 2 == 0 ) { ## even case
     ##seq1 <- c((resLen+1):len, 1:resLen)
@@ -100,6 +103,74 @@ bispectrum <- function(data, nfft=length(data)) {
     list(bispec=res, freq=freq1)
 }
 
+
+biPeriodogram <- function(data, nfft=length(data)) {
+    ## real case only dropping unneeded Fourier coefficients and using conj
+    ##for testing
+    data=1:9
+    nfft=length(data)
+    
+    
+    originalLength <- length(data)
+    fourierCoef1 <- fourierCoef(data, nfft=nfft)
+    len <- length(fourierCoef1)
+    resLen <- floor(len / 2) + 1
+    fourierCoef1 <- fourierCoef1[1:resLen]
+    ## resLen is sufficient
+    res <- array(NA, dim=c(resLen, resLen))
+    
+    lenD2 <- as.integer(len/2)
+    
+    ##seq1 <- NULL
+
+    ## we only need the top right quadrant
+    ## so we need to sort the complex conj
+    seq1 <-  c((resLen+1):len, 1:resLen)
+    seq1 <- 1:resLen
+
+    ## freq1 indicates the numerator of frequencies,
+    ## actual frequencies are freq1/len
+    freq1 <- 0:lenD2 
+    ## if(len %% 2 == 0 ) { ## even case
+    ## ##seq1 <- c((resLen+1):len, 1:resLen)
+    ##     ##fourierCoef1[c((resLen+1):len, 1:resLen)]
+    ##     ##lenD2 <- as.integer(len/2)
+    ##     freq1 <- -(lenD2-1):lenD2
+    ##     ##xSeq <- 1:resLen
+        
+    ## } else { ## odd case
+    ##     ##seq1 <-  c((resLen+1):len, 1:resLen)
+    ##     freq1 <- -(lenD2):lenD2
+    ## }
+    
+    ## reorder freqs
+    ##fourierCoef1 <-  fourierCoef1[seq1]
+    
+    for( i in 1:resLen) {
+        for(j in 1:resLen) {
+            ## this time we are only working with postitive
+            ## frequencies
+            freqSum <- freq1[i] + freq1[j]
+            thirdIdx <- freqSum ##%% len
+            setConj <- TRUE
+            if(thirdIdx  > lenD2) {
+                thirdIdx = len - thirdIdx
+                setConj <- FALSE
+            }
+
+            fCoef12 <- Conj(fourierCoef1[thirdIdx+1])
+            if(!setConj) {
+                fCoef12 <- fourierCoef1[thirdIdx+1]
+            }
+                
+            res[i,j] <-  fourierCoef1[i] *
+                fourierCoef1[j] * fCoef12
+        }
+        ##res <- res/len
+    }
+    res <- res/len
+    list(bispec=res, freq=freq1)
+}
 
 ## how to proceede
 ## see djt's paper
