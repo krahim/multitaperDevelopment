@@ -186,4 +186,53 @@ freq1 <- (1:nFreqs) -1
 freq2 <- freq1/nFFT
 
 ## so we need a block length if the block length is the entire series, then we get one value
-demod.dpss(1:10, freq2[1], 4, 2)
+##demod.dpss(1:10, freq2[1], 4, 2)
+
+data <- 1:10
+nord <- 2
+crl <- 4
+
+len <- length(data)
+res <- spec.mtm(1:10, crl, 2, dT=1, plot=FALSE, returnInternals=TRUE)
+
+vk <- res$mtm$dpss$v
+freq1 <- res$freq
+##res <- spec.mtm(1:10, crl, nord, dT=1, plot=FALSE, returnInternals=TRUE)
+cft <- sqrt(res$mtm$eigenCoefWt) * res$mtm$eigenCoefs
+nFreq <- res$mtm$nfreqs
+
+demodDat <- array(complex(1), dim=c(nFreq, len))
+##demod each freq
+for(n1 in 1:len) {
+    ##sum1 <- t(cft[n1,]) %*% vk[n1,]
+    for(f1 in 1:nFreq) {
+        demodDat[f1, n1] <- t(cft[f1,]) %*% vk[n1,]
+    }
+}
+
+
+##
+    
+Pmat3d <-  array(0, dim=c(nord,nord,nord))
+gamma0 <- 0
+for( j in 1:nord) {
+    for( k in 1:nord) {
+        for( l in 1:nord) {
+            for( n in 1:len) {
+                Pmat3d[j,k,l]  <- Pmat3d[j,k,l] + vk[n, j] *  vk[n, k] *
+                    vk[n, l]
+            }
+            gamma0 <- gamma0 +  (Pmat3d[j,k,l])^2
+        }
+    }
+}
+
+gamma0 <- 0
+for( j in 1:nord) {
+    for( k in 1:nord) {
+        for( l in 1:nord) {
+            gamma0 <- gamma0 + (Pmat3d[j,k,l])^2
+                
+        }
+    }
+}
