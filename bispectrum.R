@@ -1,24 +1,24 @@
 library(multitaper)
 
-nord <- k ## number of tapers
-crl <- nw ## time bandwidth
-ndat <- n
+## nord <- k ## number of tapers
+## crl <- nw ## time bandwidth
+## ndat <- n
 
-dpss1 <- dpss(ndat, nord, crl )
-vMat <- dpss$v
+## dpss1 <- dpss(ndat, nord, crl )
+## vMat <- dpss$v
 
-Pmat3d <-  array(0, dim=c(k,k,k))
+## Pmat3d <-  array(0, dim=c(nord,nord,nord))
 
-for( j in 1:nord) {
-    for( k in 1:nord) {
-        for( l in 1:nord) {
-            for( n in 1:ndat) {
-                Pmat3d[j,k,l]  <- Pmat3d[j,k,l] + vMat[n, j] *  vMat[n, k] *
-                    vMat[n, l]
-            }
-        }
-    }
-}
+## for( j in 1:nord) {
+##     for( k in 1:nord) {
+##         for( l in 1:nord) {
+##             for( n in 1:ndat) {
+##                 Pmat3d[j,k,l]  <- Pmat3d[j,k,l] + vMat[n, j] *  vMat[n, k] *
+##                     vMat[n, l]
+##             }
+##         }
+##     }
+## }
 
 
 ## default yf
@@ -107,14 +107,14 @@ biPeriodogramNegFreq <- function(data, nfft=length(data)) {
 biPeriodogram <- function(data, nfft=length(data)) {
     ## real case only dropping unneeded Fourier coefficients and using conj
     ##for testing
-    data=1:9
-    nfft=length(data)
+    ##data=1:9
+    ##nfft=length(data)
     
     
     originalLength <- length(data)
-    fourierCoef1 <- fourierCoef(data, nfft=nfft)
+    fourierCoef1 <- fourierCoef(data, nfft)
     len <- length(fourierCoef1)
-    resLen <- floor(len / 2) + 1
+    resLen <- as.integer(len / 2) + 1
     fourierCoef1 <- fourierCoef1[1:resLen]
     ## resLen is sufficient
     res <- array(NA, dim=c(resLen, resLen))
@@ -162,7 +162,7 @@ biPeriodogram <- function(data, nfft=length(data)) {
             if(!setConj) {
                 fCoef12 <- fourierCoef1[thirdIdx+1]
             }
-                
+            
             res[i,j] <-  fourierCoef1[i] *
                 fourierCoef1[j] * fCoef12
         }
@@ -179,11 +179,11 @@ biPeriodogram <- function(data, nfft=length(data)) {
 
 ## we need to do the complex demodulates across the frequency grid and then combine them
 
-nFFT <- 512
-nFreqs <- as.integer(nFFT/2) +1
-freq1 <- (1:nFreqs) -1
-## frequency grid for complex demodulates
-freq2 <- freq1/nFFT
+## nFFT <- 512
+## nFreqs <- as.integer(nFFT/2) +1
+## freq1 <- (1:nFreqs) -1
+## ## frequency grid for complex demodulates
+## freq2 <- freq1/nFFT
 
 ## so we need a block length if the block length is the entire series, then we get one value
 ##demod.dpss(1:10, freq2[1], 4, 2)
@@ -192,47 +192,102 @@ data <- 1:10
 nord <- 2
 crl <- 4
 
-len <- length(data)
-res <- spec.mtm(1:10, crl, 2, dT=1, plot=FALSE, returnInternals=TRUE)
 
-vk <- res$mtm$dpss$v
-freq1 <- res$freq
-##res <- spec.mtm(1:10, crl, nord, dT=1, plot=FALSE, returnInternals=TRUE)
-cft <- sqrt(res$mtm$eigenCoefWt) * res$mtm$eigenCoefs
-nFreq <- res$mtm$nfreqs
+mtm.bispectrum <- function(data, NW, k, dT=1, nFFT=length(data)) {
+    ##len <- length(data)
 
-demodDat <- array(complex(1), dim=c(nFreq, len))
-##demod each freq
-for(n1 in 1:len) {
-    ##sum1 <- t(cft[n1,]) %*% vk[n1,]
-    for(f1 in 1:nFreq) {
-        demodDat[f1, n1] <- t(cft[f1,]) %*% vk[n1,]
-    }
-}
+    ## data <- 1:10
+    ## NW <- 2
+    ## k <-  4
+    ## dT <- 1
 
+    ## nFFT <- 32
 
-##
     
-Pmat3d <-  array(0, dim=c(nord,nord,nord))
-gamma0 <- 0
-for( j in 1:nord) {
-    for( k in 1:nord) {
-        for( l in 1:nord) {
-            for( n in 1:len) {
-                Pmat3d[j,k,l]  <- Pmat3d[j,k,l] + vk[n, j] *  vk[n, k] *
-                    vk[n, l]
-            }
-            gamma0 <- gamma0 +  (Pmat3d[j,k,l])^2
-        }
-    }
-}
+    crl <- NW
+    nord <- k
+    res <- spec.mtm(data, crl, nord, dT=dT, plot=FALSE,
+                    nFFT=nFFT, returnInternals=TRUE)
 
-gamma0 <- 0
-for( j in 1:nord) {
-    for( k in 1:nord) {
-        for( l in 1:nord) {
-            gamma0 <- gamma0 + (Pmat3d[j,k,l])^2
-                
+    vk <- res$mtm$dpss$v
+    actualFreqs <- res$freq
+    ##res <- spec.mtm(1:10, crl, nord, dT=1, plot=FALSE, returnInternals=TRUE)
+    cft <- sqrt(res$mtm$eigenCoefWt) * res$mtm$eigenCoefs
+    nFreq <- res$mtm$nfreqs
+    nfft <- res$mtm$nFFT
+    
+    ## the demodMat is djt's \hat(x)(f;t) from eqn 8 in the bispectrum paper
+    demodMat <- array(complex(1), dim=c(nFreq, len))
+    ##demod each freq
+    for(n1 in 1:len) {
+        ##sum1 <- t(cft[n1,]) %*% vk[n1,]
+        for(f1 in 1:nFreq) {
+            demodMat[f1, n1] <- t(cft[f1,]) %*% vk[n1,]
         }
     }
+    
+    
+    
+
+    ##Pmat3d is equation (9) and gamma0 is eqn (12)
+    Pmat3d <-  array(0, dim=c(nord,nord,nord))
+    gamma0 <- 0
+    for( j in 1:nord) {
+        for( k in 1:nord) {
+            for( l in 1:nord) {
+                for( n in 1:len) {
+                    Pmat3d[j,k,l]  <- Pmat3d[j,k,l] + vk[n, j] *  vk[n, k] *
+                        vk[n, l]
+                }
+                gamma0 <- gamma0 +  (Pmat3d[j,k,l])^2
+            }
+        }
+    }
+    
+    ## gamma0 <- 0
+    ## for( j in 1:nord) {
+    ##     for( k in 1:nord) {
+    ##         for( l in 1:nord) {
+    ##             gamma0 <- gamma0 + (Pmat3d[j,k,l])^2
+                
+    ##         }
+    ##     }
+    ## }
+    
+    
+    ##lenD2 <- as.integer(len/2)
+    
+    ## freq index
+    freq1 <- (1:nFreq-1)
+    demodMat1 <- t(demodMat)
+    res2 <- array(0i, dim=c(nFreq, nFreq))
+    for(i in 1:nFreq) {
+        for(j in 1:nFreq) {
+            ## this time we are only working with postitive
+            ## frequencies
+            freqSum <- freq1[i] + freq1[j]
+            thirdIdx <- freqSum ##%% len
+            setConj <- TRUE
+            ## was lenD2
+            if(thirdIdx  > (nFreq -1)) {
+                thirdIdx = nfft - thirdIdx
+                setConj <- FALSE
+            }
+            
+            for(n in 1:len) {
+                
+                fCoef12 <- Conj(demodMat1[n, thirdIdx+1])
+                if(!setConj) {
+                    fCoef12 <- demodMat1[n, thirdIdx+1]
+                }
+                
+                res2[i,j] <- res2[i,j] + demodMat1[n, i] *
+                    demodMat1[n, j] * fCoef12
+            }
+        }
+        ##res <- res/len
+    }
+    
+    res2 <- res2/gamma0
+    list(bispec=res2, freq=actualFreqs)
 }
