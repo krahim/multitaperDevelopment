@@ -206,6 +206,7 @@ mtm.bispectrum <- function(data, NW, k, dT=1, nFFT=length(data)) {
     
     crl <- NW
     nord <- k
+    len <- length(data)
     res <- spec.mtm(data, crl, nord, dT=dT, plot=FALSE,
                     nFFT=nFFT, returnInternals=TRUE)
 
@@ -291,3 +292,10 @@ mtm.bispectrum <- function(data, NW, k, dT=1, nFFT=length(data)) {
     res2 <- res2/gamma0
     list(bispec=res2, freq=actualFreqs)
 }
+
+
+## both seem okay there may be some scaling issues to be confirmed
+image.plot(abs(biPeriodogramNegFreq(1:10, nfft=32)$bispec)**2)
+image.plot(abs(biPeriodogram(1:10, nfft=32)$bispec)**2)
+image.plot(abs(mtm.bispectrum(1:10, 2, 4, nFFT=32)$bispec)**2)
+image.plot(abs(mtm.bispectrum(1:10, 2, 5, nFFT=64)$bispec)**2)
