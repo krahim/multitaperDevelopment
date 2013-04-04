@@ -190,9 +190,9 @@ biPeriodogram <- function(data, nfft=length(data)) {
 ## so we need a block length if the block length is the entire series, then we get one value
 ##demod.dpss(1:10, freq2[1], 4, 2)
 
-data <- 1:10
-nord <- 2
-crl <- 4
+## data <- 1:10
+## nord <- 2
+## crl <- 4
 
 
 mtm.bispectrum <- function(data, NW, k, dT=1, nFFT=length(data)) {
@@ -296,8 +296,8 @@ mtm.bispectrum <- function(data, NW, k, dT=1, nFFT=length(data)) {
 }
 
 
-## both seem okay there may be some scaling issues to be confirmed
-image.plot(abs(biPeriodogramNegFreq(1:10, nfft=32)$bispec)**2)
-image.plot(abs(biPeriodogram(1:10, nfft=32)$bispec)**2)
-image.plot(abs(mtm.bispectrum(1:10, 2, 4, nFFT=32)$bispec)**2)
-image.plot(abs(mtm.bispectrum(1:10, 2, 5, nFFT=64)$bispec)**2)
+## ## both seem okay there may be some scaling issues to be confirmed
+## image.plot(abs(biPeriodogramNegFreq(1:10, nfft=32)$bispec)**2)
+## image.plot(abs(biPeriodogram(1:10, nfft=32)$bispec)**2)
+## image.plot(abs(mtm.bispectrum(1:10, 2, 4, nFFT=32)$bispec)**2)
+## image.plot(abs(mtm.bispectrum(1:10, 2, 5, nFFT=64)$bispec)**2)
