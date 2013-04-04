@@ -1,4 +1,7 @@
-library(fields) ##image.plot.info
+if(!require("fields")){
+    stop("fields package must be installed")
+}
+
 
 image.plot2 <- function (..., add = FALSE, nlevel = 64, horizontal = FALSE, 
                          legend.shrink = 0.9, legend.width = 1.2,

@@ -1,3 +1,8 @@
+if(!require("multitaper")){
+    stop("multitaper package must be installed")
+}
+
+
 ## pushed to multitaper package on github
 
 ## the comment had been updated here.

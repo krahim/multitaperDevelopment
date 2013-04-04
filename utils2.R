@@ -27,7 +27,9 @@
 ##     Jeffery Hall, Queen's University, Kingston Ontario
 ##     Canada, K7L 3N6
 
-
+if(!require("multitaper")){
+    stop("multitaper package must be installed")
+}
 
 ## Utilities for and qi code
 

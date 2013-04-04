@@ -1,4 +1,7 @@
-require(multitaper)
+if(!require("multitaper")){
+    stop("multitaper package must be installed")
+}
+
 
 ## based on German Prieto's et. al  2005 IEEE paper
 ## MULTITAPER WIGNER-VILLE SPECTRUM FOR DETECTING DISPERSIVE SIGNALS
