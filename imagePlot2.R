@@ -1,6 +1,4 @@
-if(!require("fields")){
-    stop("fields package must be installed")
-}
+library("fields")
 
 
 image.plot2 <- function (..., add = FALSE, nlevel = 64, horizontal = FALSE, 

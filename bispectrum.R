@@ -1,6 +1,4 @@
-if(!require("multitaper")){
-    stop("multitaper package must be installed")
-}
+library("multitaper")
 
 ## nord <- k ## number of tapers
 ## crl <- nw ## time bandwidth

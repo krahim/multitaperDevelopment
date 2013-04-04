@@ -27,9 +27,7 @@
 ##     Jeffery Hall, Queen's University, Kingston Ontario
 ##     Canada, K7L 3N6
 
-if(!require("multitaper")){
-    stop("multitaper package must be installed")
-}
+library("multitaper")}
 
 ## Code for multitaper non-stationary quadratic inverse. Spectral
 ## derivitives.

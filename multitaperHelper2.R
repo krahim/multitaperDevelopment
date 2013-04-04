@@ -1,6 +1,4 @@
-if(!require("multitaper")){
-    stop("multitaper package must be installed")
-}
+library("multitaper")
 
 
 ## pushed to multitaper package on github
