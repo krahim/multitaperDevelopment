@@ -5,8 +5,8 @@
 
 ## If you are reading this and curious, yes PWlisp refers to the folder I initially downloaded
 ## and ran the Perciaval and Walden Lisp code.
-## The mulititaper package contains modified Fortran code code written by Thomson (1982)
-## and at times R code based on the LISP code provided with Percival and Walden (1993).
+## The mulititaper package contains modified Fortran code code written by Thomson (1982),
+## and some of the R code based on the LISP code provided with Percival and Walden (1993).
 
 load.mtm.dev <- function(absolutePathToDir) {
 
