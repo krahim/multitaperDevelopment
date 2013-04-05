@@ -1,4 +1,4 @@
-library("multitaper")}
+library("multitaper")
 
 
 ## based on German Prieto's et. al  2005 IEEE paper
