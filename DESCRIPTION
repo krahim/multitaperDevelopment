@@ -1,0 +1,11 @@
+Package: multitaperDevelopment
+Version: 0.1-1
+Date: 2013-04-09
+Title: multitaperDevelopment
+Author: Karim Rahim <karim.rahim@gmail.com>
+Maintainer: Karim Rahim <karim.rahim@gmail.com>
+Depends: R (>= 2.15.2)
+SystemRequirements: multitaper (>= 1.0-3)
+Description: This contains development tools for the multitaper package. This package is not yet on CRAN. If Fortran or C files are included then the Rtools will be required to build this package on Windows machines. I have not plans to put this package on CRAN, I will likely implement tools from this package in the main multitaper package after cleaning up and testing.
+License: GPL (>= 2)
+URL: http://github.com/krahim/multitaperDevelopment

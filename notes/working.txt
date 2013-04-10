@@ -1,0 +1,1 @@
+sed -i 's/if(!require("multitaper")){\nstop("multitaper package must be installed")\n}/library("multitaper")' bispectrum.R
