@@ -30,3 +30,5 @@
 ##     source(paste(absolutePathToDir, "utils2.R", sep=""))
 ## }
 
+## required to not break my local code don't build ;)
+library("multitaperDevelopment")
