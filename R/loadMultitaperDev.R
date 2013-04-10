@@ -15,18 +15,18 @@
 ## The mulititaper package contains modified Fortran code code written by Thomson (1982),
 ## and some of the R code based on the LISP code provided with Percival and Walden (1993).
 
-load.mtm.dev <- function(absolutePathToDir) {
+## load.mtm.dev <- function(absolutePathToDir) {
 
-    library("multitaper")
-    library("fields")
+##     library("multitaper")
+##     library("fields")
 
-    source(paste(absolutePathToDir, "bispectrum.R", sep=""))
-    source(paste(absolutePathToDir, "imagePlot2.R", sep=""))
-    source(paste(absolutePathToDir, "loeveSpectrum.R", sep=""))
-    source(paste(absolutePathToDir, "multitaperBlock.R", sep=""))
-    source(paste(absolutePathToDir, "multitaperHelper2.R", sep=""))
-    source(paste(absolutePathToDir, "spectraldist.R", sep=""))
-    source(paste(absolutePathToDir, "quadraticInverse.R", sep=""))
-    source(paste(absolutePathToDir, "utils2.R", sep=""))
-}
+##     source(paste(absolutePathToDir, "bispectrum.R", sep=""))
+##     source(paste(absolutePathToDir, "imagePlot2.R", sep=""))
+##     source(paste(absolutePathToDir, "loeveSpectrum.R", sep=""))
+##     source(paste(absolutePathToDir, "multitaperBlock.R", sep=""))
+##     source(paste(absolutePathToDir, "multitaperHelper2.R", sep=""))
+##     source(paste(absolutePathToDir, "spectraldist.R", sep=""))
+##     source(paste(absolutePathToDir, "quadraticInverse.R", sep=""))
+##     source(paste(absolutePathToDir, "utils2.R", sep=""))
+## }
 

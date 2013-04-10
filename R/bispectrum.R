@@ -1,4 +1,4 @@
-library("multitaper")
+##library("multitaper")
 
 ## nord <- k ## number of tapers
 ## crl <- nw ## time bandwidth

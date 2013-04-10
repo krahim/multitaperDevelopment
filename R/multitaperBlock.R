@@ -27,7 +27,7 @@
 ##     Jeffery Hall, Queen's University, Kingston Ontario
 ##     Canada, K7L 3N6
 
-library("multitaper")
+##library("multitaper")
 
 ## Utilities for and code for multitaper spectrograms 
 

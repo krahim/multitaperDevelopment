@@ -27,7 +27,7 @@
 ##     Jeffery Hall, Queen's University, Kingston Ontario
 ##     Canada, K7L 3N6
 
-library("multitaper")
+##library("multitaper")
 
 ## Code for multitaper non-stationary quadratic inverse. Spectral
 ## derivitives.
@@ -322,9 +322,10 @@ getQICcoefficients <- function(L, cfts, A3m, xBcf, Gev, nord, curs=TRUE) {
     nBlocks <- dim(cfts)[3]
     QIC <- array(0, dim=c(nFreqs, nBlocks, L))
     urs <- array(0, dim=c(nFreqs, nBlocks))
+    ## note on package making curblk and j were swiched.
     for(j in 1:nBlocks) {
         res <- getQICcoefficients1Block(L, cfts[,,j], A3m, xBcf, Gev,
-                                        curblk, nord, curs=TRUE)
+                                        j, nord, curs=TRUE)
         QIC[,j,] <- res$QIC
         urs[,j] <- res$urs        
     }

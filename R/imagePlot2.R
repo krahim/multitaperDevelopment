@@ -1,4 +1,4 @@
-library("fields")
+##library("fields")
 
 
 image.plot2 <- function (..., add = FALSE, nlevel = 64, horizontal = FALSE, 

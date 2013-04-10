@@ -1,4 +1,4 @@
-library("multitaper")
+##library("multitaper")
 
 
 ## pushed to multitaper package on github
