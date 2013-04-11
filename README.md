@@ -1,7 +1,9 @@
 multitaperDevelopment
 ======================
 
-Development code for multitaper package. No documentation provided, but this code should work when the multiaper package is installed. 
+Development code for multitaper package. I do not plan to put this on CRAN as a package but functionality from this may be moved to the multitaper package at some point.
+
+No documentation provided, but this code should work when the multiaper package is installed. 
 
 Build instructions for general Linux machine.
 
