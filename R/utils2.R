@@ -54,3 +54,73 @@ getFittedAR <- function(dat1, ar1, addMean=FALSE) {
 }
     
 
+## helper function may be able to use R
+## seq(along=x)[x == max(x)]
+## may have to condsider duplicates
+
+getIndex <- function(items, searchArray) {
+   nItems <- length(items);
+   if(nItems==0) {
+      return();
+   }
+   N <- length(searchArray);
+   result <- array(NA, nItems);
+   for( i in 1:nItems) {
+      for(j in 1:N) {
+         if(items[i] == searchArray[j]) {
+		      result[i] <- j;
+		      break;
+          }
+      }
+   }
+   return(result);
+}
+
+descriptiveStats <- function(X)
+    cm4pp(X)
+}
+
+
+## stats matching those used in djt's fortran libraries.
+
+kurtosis <- function(X) {
+   return(sum((X-mean(X))^4)/((length(X)-1) * var(X)^2));
+}
+
+kurtosis3 <-  function(X) {
+    return(kurtosis(X) -3);
+}
+
+
+
+cm4pp <-  function(X)
+{
+    n <-  length(X)
+    nM1 <-  n -1
+    maxX <- max(X)
+    minX <- min(X)
+    maxI <-  getIndex(maxX, X)
+    minI <-  getIndex(minX, X)
+    seq <- 1:n
+    ## getIndex here returns an array potential error...
+    tI <- seq != minI[1] & seq != maxI[1]
+    tX <-  X[tI]
+    tMean <-  mean(tX)
+    tSD <- sd(tX)
+    tVar <-  var(tX)
+   
+    mu <-  mean(X)
+    sigma <- sd(X)
+    sigma2 <- var(X)
+    cm <- (X - mu)
+    cm3 <-  cm^3
+    cm4 <-  cm^4
+    skew1 <-  sum(cm3)/(nM1 * sigma^3)
+    kurt <-  sum(cm4)/(nM1 * sigma2^2)
+
+    return(list( maxX=maxX, maxI=maxI, minX=minX,
+                minI=minI, avg=mu,
+                tAvg=tMean, sigma=sigma, tSigma=tSD,
+                sigma2=sigma2, tSigma2=tVar, skew=skew1,
+                kurt=kurt))
+}
