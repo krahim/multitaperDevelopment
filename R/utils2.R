@@ -40,3 +40,17 @@ scaleFnToFit <- function(fnToFit, fnPlotted) {
     scale1 <- diff(range(fnPlotted)) / diff(range(fnToFit))
     const1+scale1*fnToFit
 }
+
+##error checks?
+## we don't need no stinking error checks
+
+getFittedAR <- function(dat1, ar1, addMean=FALSE) {
+
+    n1 <- length(dat1)
+    order1 <- ar1$order
+    dat1 <- dat1 - ar1$x.mean
+    fitted1 <- convolve(dat1, rev(ar1$ar), type="filter")[1:(n1-order1)]
+    c(rep(NA, order1), fitted1) + if(addMean) ar1$x.mean else 0
+}
+    
+
