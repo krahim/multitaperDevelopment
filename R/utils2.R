@@ -76,7 +76,7 @@ getIndex <- function(items, searchArray) {
    return(result);
 }
 
-descriptiveStats <- function(X)
+descriptiveStats <- function(X) {
     cm4pp(X)
 }
 
@@ -93,8 +93,7 @@ kurtosis3 <-  function(X) {
 
 
 
-cm4pp <-  function(X)
-{
+cm4pp <-  function(X) {
     n <-  length(X)
     nM1 <-  n -1
     maxX <- max(X)
