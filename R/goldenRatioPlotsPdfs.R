@@ -2,6 +2,19 @@
 ## I use them in Linux.
 
 setGoldenRatioPlot <- function() {
+    ## the constants come from rounding
+    ## and using GR constant phi
+    ## phi <- (1 + sqrt(5))/2
+    ##
+    ## 5*phi
+    ## [1] 8.09017
+    ## 7/phi
+    ## [1] 4.326238
+
+    ## it appears pdf dimensions control the font size
+    ## larger pdf dimensions == smaller font size
+    ## font size can also be set with cex, cex.axis, cex.lab
+    ## and cex.main
     X11.options(width=8.09, height=5)
     pdf.options(width=7, height=4.33)
 }
@@ -13,7 +26,19 @@ resetPlotRatios <- function() {
 
 setGoldenRatioPlot2Col <- function() {
     X11.options(width=8.09, height=5)
+    ##   3.5/phi
+    ## [1] 2.163119
+
     pdf.options(width=3.5, height=2.16)
+}
+
+set9inchWidthGoldenRatio <- function() {
+    ## phi <- (1 + sqrt(5))/2
+    ## 9/phi
+    ## [1] 5.562306
+
+    X11.options(width=8.09, height=5)
+    pdf.options(width=9, height=5.56)
 }
 
 ##figure in grape harvest section of thesis.
