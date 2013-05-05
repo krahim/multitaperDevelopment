@@ -31,4 +31,4 @@
 ## }
 
 ## required to not break my local code don't build ;)
-library("multitaperDevelopment")
+##library("multitaperDevelopment")
