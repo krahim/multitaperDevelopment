@@ -15,5 +15,6 @@ Build instructions for general Linux machine.
 
 Note: The version number may change, and you will likely have to set the PATH variable for other operating systems.
 
+This packaged depends on the package PWLISPR which is not available on CRAN. See: https://github.com/krahim/PWLISPR 
 
 
