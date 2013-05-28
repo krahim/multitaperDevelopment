@@ -106,7 +106,7 @@ plotJkcoh1 <- function(freqs,TRmsc, NTvar, k, nfreqs, percentGreater=NULL,
 
 
 ## attempt to make a nicer function
-mscToCDFquantiles <- function(msc, k) {
+.mscToCDFquantiles <- function(msc, k) {
     1 - (1-msc)^(k-1)
 }
 
@@ -146,7 +146,6 @@ plotJkcoh2 <- function(freqs, TRmsc, NTvar, k, nfreqs, percentGreater=NULL,
     mtext("Inverse Transform of Magnitude Squared Coherence",
           side=2, line=2)
 
-    ##  outer MSC axis on the left
     ## get msc and ticks
     msc <- multitaper:::.FtoMSC(plotTRmsc[,2], trnrm_)
     mscTicks <- pretty(msc)
@@ -160,7 +159,7 @@ plotJkcoh2 <- function(freqs, TRmsc, NTvar, k, nfreqs, percentGreater=NULL,
     ##mscToCDF values may have issues for highly coherent values
     ## values over .9 will cause issues
     if(is.null(cdfQuantilesTicks)) {
-        cdfQuantiles <- mscToCDFquantiles(msc, k)
+        cdfQuantiles <- .mscToCDFquantiles(msc, k)
         cdfQuantilesTicks <- pretty(cdfQuantiles)
     }
 
