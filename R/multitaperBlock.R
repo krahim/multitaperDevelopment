@@ -228,7 +228,7 @@ spec.mtm.block <- function(timeSeries,
                            ##if 2, trims 2 extreme points in mean
                            ## used if not centering with slepians
                            numPointsTrimMean=2,
-                           returnZeroFreq=T,
+                           returnZeroFreq=TRUE,
                            jackKnife=FALSE,
                            Ftest=FALSE, ## set this to false as it is not working yet
                            jkCIProb=.95,
