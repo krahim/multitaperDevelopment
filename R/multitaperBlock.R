@@ -34,7 +34,8 @@
 
 
 ## block mtm utils
-## are there two uses for mtm, one for blocking the data, and two for looking at the different variates.
+## are there two uses for mtm, one for blocking the data, and two for
+## looking at the different variates.
 ## utilities
 
 .nextPowerOf2 <- function(x) {
@@ -476,11 +477,14 @@ spec.mtm.block <- function(timeSeries,
 }
 
 
-##modified for return ssqres and to loose ks
-## this sets ftbase of required for plotting
+
 .HF4mp1_mod<- function(cft,swz,nfrlo,nfrhi,
                       nord ,ssqswz,
-                      ftbase=0) { ##ftbase=1.01) {
+                      ftbase=0) {
+    ##modified for return ssqres and to loose ks
+    ## this sets ftbase of required for plotting
+    ##
+    ##ftbase=1.01) {
     ## expect nfrlo=1 and nfrhi=nfft or issues
     ## need to ensure data is in matrix format
     ## for crossprod, tcrossprod.
@@ -511,10 +515,10 @@ spec.mtm.block <- function(timeSeries,
 }
 
 
-#S_{N} is what is used not S_{N-1} in the SAPA Lisp code
 .sampleVariance.bias <-function(timeSeries) {
-   N <- length(timeSeries);
-   return((as.double(t(timeSeries)%*%timeSeries) - sum(timeSeries)^2/N)/N);
+    ##S_{N} is what is used not S_{N-1} in the SAPA Lisp code
+    N <- length(timeSeries);
+    return((as.double(t(timeSeries)%*%timeSeries) - sum(timeSeries)^2/N)/N);
 }
 
 
@@ -522,9 +526,17 @@ spec.mtm.block <- function(timeSeries,
 bartlettM <- function(sdfs, k, J=dim(sdfs)[2],  nu=2*k) {
     ##no overlaps for ci
     ##nu = k*2
+    ## #################################################
+    ## discussion with djt to be sorted out
+    ## the gm is a one step prediction variance kolmogorov's theorem.
+    ## one step prediction variance for an AR(1)
+    ## 
+    ## ###################################################
+    
     am <- apply(sdfs, 1, mean)
     gm <- apply(log(sdfs), 1, mean)
     M <- J * nu * (log(am) - gm)
     C <- 1+ (J+1)/(3*J*nu)
     return(list(M=M, C=C, MdivC=M/C))
 }
+
