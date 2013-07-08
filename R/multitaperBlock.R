@@ -520,6 +520,7 @@ spec.mtm.block <- function(timeSeries,
 
 ##no overlaps for ci
 bartlettM <- function(sdfs, k, J=dim(sdfs)[2],  nu=2*k) {
+    ##no overlaps for ci
     ##nu = k*2
     am <- apply(sdfs, 1, mean)
     gm <- apply(log(sdfs), 1, mean)
