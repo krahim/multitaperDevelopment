@@ -15,6 +15,7 @@ setGoldenRatioPlot <- function() {
     ## larger pdf dimensions == smaller font size
     ## font size can also be set with cex, cex.axis, cex.lab
     ## and cex.main
+    ## these units are in inches.
     X11.options(width=8.09, height=5)
     pdf.options(width=7, height=4.33)
 }
