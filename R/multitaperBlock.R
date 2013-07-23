@@ -523,7 +523,9 @@ spec.mtm.block <- function(timeSeries,
 
 
 ##no overlaps for ci
-bartlettM <- function(sdfs, k, J=dim(sdfs)[2],  nu=2*k) {
+bartlettM <- function(sdfs, k, nu=2*k, J=dim(sdfs)[2]) {
+    ## order change so that in nu is supplied than this can be
+    ## adaptive 
     ##no overlaps for ci
     ##nu = k*2
     ## #################################################
@@ -532,6 +534,13 @@ bartlettM <- function(sdfs, k, J=dim(sdfs)[2],  nu=2*k) {
     ## one step prediction variance for an AR(1)
     ## 
     ## ###################################################
+    ## addaptive example
+    ##
+    ## dofs1 <- mtmBartAr4Dat$dofs
+    ## meanDofs <- apply(dofs1, 1, mean)
+    ## bartlettAr4MVals.adaptive <- bartlettM.adaptive(spec, k,
+    ##                                                 meanDofs)
+
     
     am <- apply(sdfs, 1, mean)
     gm <- apply(log(sdfs), 1, mean)
@@ -540,3 +549,13 @@ bartlettM <- function(sdfs, k, J=dim(sdfs)[2],  nu=2*k) {
     return(list(M=M, C=C, MdivC=M/C))
 }
 
+## added this
+bartlettM.adaptive <- function (sdfs, k, nu, J = dim(sdfs)[2]) 
+{
+    ##nu is currently mean dofs
+    am <- apply(sdfs, 1, mean)
+    gm <- apply(log(sdfs), 1, mean)
+    M <- J * nu * (log(am) - gm)
+    C <- 1 + (J + 1)/(3 * J * nu)
+    return(list(M = M, C = C, MdivC = M/C))
+}
