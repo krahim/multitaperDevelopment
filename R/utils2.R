@@ -123,3 +123,16 @@ cm4pp <-  function(X) {
                 sigma2=sigma2, tSigma2=tVar, skew=skew1,
                 kurt=kurt))
 }
+
+
+stripWatFreqAtEdge <- function(freq, nw, fracW=1, deltat=1) {
+    len <- length(freq)
+    nyquist <- freq[len]
+    w <- nw/(len*deltat)
+    idx <- (freq > w) & (freq < (nyquist - w ))
+    list(idx=(1:len)[idx], freq=freq[idx])
+}
+
+    
+
+    
