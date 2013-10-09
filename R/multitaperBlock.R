@@ -477,7 +477,7 @@ spec.mtm.block <- function(timeSeries,
 }
 
 
-
+### block spectral without adaptive weights
 getBlockSpecMatNoAdaptiveWt <- function(blockMTM) {
     ## without adaptive weights
     if(is.null(blockMTM$mtm)) {
