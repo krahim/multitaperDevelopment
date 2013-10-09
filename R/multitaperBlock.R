@@ -55,7 +55,7 @@ tryAllOffSets <- function(N, blockLength) {
                 res <- c(n, res)
             }
         }
-        resList <- c(resList, list(blocklen=blockLength[i], offsets=res))  
+        resList <- c(resList, list(blocklen=blockLength[i], offsets=sort(res)))  
         
     }
     return(resList)
@@ -74,7 +74,7 @@ tryAllBiggerOffSets <- function(N, blockLength) {
                 res <- c(n, res)
             }
         }
-        resList <- c(resList, list(blocklen=blockLength[i], offsets=res))  
+        resList <- c(resList, list(blocklen=blockLength[i], offsets=sort(res)))  
         
     }
     return(resList)
