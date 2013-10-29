@@ -564,8 +564,8 @@ bartlettM <- function(sdfs, k, nu=2*k, J=dim(sdfs)[2]) {
 
     
     am <- apply(sdfs, 1, mean)
-    gm <- apply(log(sdfs), 1, mean)
-    M <- J * nu * (log(am) - gm)
+    log.gm <- apply(log(sdfs), 1, mean)
+    M <- J * nu * (log(am) - log.gm)
     C <- 1+ (J+1)/(3*J*nu)
     return(list(M=M, C=C, MdivC=M/C))
 }
@@ -575,8 +575,8 @@ bartlettM.adaptive <- function (sdfs, k, nu, J = dim(sdfs)[2])
 {
     ##nu is currently mean dofs
     am <- apply(sdfs, 1, mean)
-    gm <- apply(log(sdfs), 1, mean)
-    M <- J * nu * (log(am) - gm)
+    log.gm <- apply(log(sdfs), 1, mean)
+    M <- J * nu * (log(am) - log.gm)
     C <- 1 + (J + 1)/(3 * J * nu)
     return(list(M = M, C = C, MdivC = M/C))
 }
