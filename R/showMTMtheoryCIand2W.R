@@ -102,6 +102,7 @@ drawMTMCross <- function(f0, s0, mtmObj, ciWidth=.95, fun1=median,
                  ...)
 }
 
+## bandwidth on bartlett and spectrograms
 bandwidthSegOnSpectrogram <- function(w, f0, idx) {
     flo <- f0 - w
     fhi <- f0 + w
