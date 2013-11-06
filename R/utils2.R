@@ -124,13 +124,19 @@ cm4pp <-  function(X) {
                 kurt=kurt))
 }
 
-
-stripWatFreqAtEdge <- function(freq, nw, fracW=1, deltat=1) {
-    len <- length(freq)
-    nyquist <- freq[len]
-    w <- nw/(len*deltat)
-    idx <- (freq > w) & (freq < (nyquist - w ))
-    list(idx=(1:len)[idx], freq=freq[idx])
+## do we need the edge values....
+stripWatFreqAtEdge <- function(freq, w, strictInEquality=TRUE) {
+    ## fracW is not used... the idea is to multiply w by a fraction
+    ## one can simply multiply nw by this fraction.
+    nyquist <- freq[length(freq)]
+    idx <- NULL
+    if(strictInEquality) {
+        idx <- (freq > w) & (freq < (nyquist - w ))
+    } else {
+        idx <- (freq >= w) & (freq <= (nyquist - w ))
+    }
+        
+    list(idx=(1:length(freq))[idx], freq=freq[idx])
 }
 
     
