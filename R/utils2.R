@@ -125,9 +125,12 @@ cm4pp <-  function(X) {
 }
 
 ## do we need the edge values....
+##stripWatFreqAtEdge(freq, 0, strictInEquality=FALSE)
+
 stripWatFreqAtEdge <- function(freq, w, strictInEquality=TRUE) {
     ## fracW is not used... the idea is to multiply w by a fraction
     ## one can simply multiply nw by this fraction.
+    ##stripWatFreqAtEdge(freq, 0, strictInEquality=FALSE) ##to prevent stripping
     nyquist <- freq[length(freq)]
     idx <- NULL
     if(strictInEquality) {
