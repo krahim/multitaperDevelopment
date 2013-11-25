@@ -109,8 +109,8 @@ bandwidthSegOnSpectrogram <- function(w, f0, idx) {
     segments(idx, flo, idx, fhi)
 }
 
-bandwidthSegOnSpectrogram <- function(w, f0, idx) {
+bandwidthSegOnBartlet <- function(w, f0, yVal) {
     flo <- f0 - w
     fhi <- f0 + w
-    segments(idx, flo, idx, fhi)
+    segments(flo, yVal, fhi, yVal)
 }
