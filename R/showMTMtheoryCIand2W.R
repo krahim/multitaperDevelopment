@@ -114,3 +114,10 @@ bandwidthSegOnBartlet <- function(w, f0, yVal) {
     fhi <- f0 + w
     segments(flo, yVal, fhi, yVal)
 }
+
+
+drawSigCohLines <- function(k, percentG, colour="blue", lty=2, lwd=1, ...) {
+    trnrmK <- multitaper:::.trnrm(k)
+    percentG <- multitaper:::.C2toF(multitaper:::.cdfToMSqCoh(percentG, k), trnrmK)
+    abline(h=percentG, col=colour, lty=lty, lwd=lwd, ...)
+}
