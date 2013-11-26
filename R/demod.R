@@ -81,8 +81,21 @@
 ##  e^{-i 2 \pi f_0 t} 
 
 ## consider some latex in documentation.
-
+## use \deqn{ 
+## See: https://stat.ethz.ch/pipermail/r-help/2008-August/171907.html
 ##
+##
+## 	The R documentation facility --- RTFM!!! (section 2.6 Mathematics)  
+## --- provides a way
+## 	to allow for both possibilities.  You can do:
+
+## 	\deqn{R^2 = 1 - \frac{estimated variance}{observed variance}}{R- 
+## squared = 1 - (estimated variance)/(observed variance)}
+
+## 	Then in the pdf manual for your package you'll get the sexy  
+## mathematical display, but when you call
+## 	for help on line and get a plain text or html version you'll see
+
 ################################################################
 
 
