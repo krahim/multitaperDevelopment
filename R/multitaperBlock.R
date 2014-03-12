@@ -296,6 +296,7 @@ spec.mtm.block <- function(timeSeries,
     sdfs <- array(NA, dim=c(nFreqs,nBlocks))
     dofs <- array(NA, dim=c(nFreqs,nBlocks))
     wtcfts <- array(NA, dim=c(nFreqs,k,nBlocks))
+    cfts <- array(NA,  dim=c(nFreqs,k,nBlocks))
     sas <- array(NA, dim=c(nFreqs,k,nBlocks))
     varjks <- NULL
     bcjks <- NULL
@@ -419,6 +420,7 @@ spec.mtm.block <- function(timeSeries,
         dofs[,iBlockP1] <- adaptive$dofs
 
         ## the weights returned are squared dw2 so we need the square root.
+        cfts[,,iBlockP1] <- cft
         wtcfts[,,iBlockP1] <- cft*sqrt(adaptive$wt)
         sas[,,iBlockP1] <- sa
     }
@@ -440,6 +442,7 @@ spec.mtm.block <- function(timeSeries,
         auxiliary <- list(dw=dw, 
                           ev=ev,
                           wtcfts=wtcfts,
+                          cfts=cfts,
                           sas=sas,
                           nfreqs=nFreqs,
                           nFFT=nFFT,
