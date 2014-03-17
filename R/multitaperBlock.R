@@ -297,6 +297,7 @@ spec.mtm.block <- function(timeSeries,
     dofs <- array(NA, dim=c(nFreqs,nBlocks))
     wtcfts <- array(NA, dim=c(nFreqs,k,nBlocks))
     cfts <- array(NA,  dim=c(nFreqs,k,nBlocks))
+    wtsSq <- array(NA, dim=c(nFreqs,k,nBlocks))
     sas <- array(NA, dim=c(nFreqs,k,nBlocks))
     varjks <- NULL
     bcjks <- NULL
@@ -423,6 +424,7 @@ spec.mtm.block <- function(timeSeries,
         cfts[,,iBlockP1] <- cft
         wtcfts[,,iBlockP1] <- cft*sqrt(adaptive$wt)
         sas[,,iBlockP1] <- sa
+        wtsSq <- adaptive$wt
     }
 
     if(jackKnife) {
@@ -444,6 +446,7 @@ spec.mtm.block <- function(timeSeries,
                           wtcfts=wtcfts,
                           cfts=cfts,
                           sas=sas,
+                          wtsSq=wtsSq,
                           nfreqs=nFreqs,
                           nFFT=nFFT,
                           FtestRes=if(Ftest) FtestResults else
