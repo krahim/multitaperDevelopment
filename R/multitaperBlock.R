@@ -424,7 +424,7 @@ spec.mtm.block <- function(timeSeries,
         cfts[,,iBlockP1] <- cft
         wtcfts[,,iBlockP1] <- cft*sqrt(adaptive$wt)
         sas[,,iBlockP1] <- sa
-        wtsSq <- adaptive$wt
+        wtsSq[,,iBlockP1] <- adaptive$wt
     }
 
     if(jackKnife) {
